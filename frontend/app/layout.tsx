@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
-
-const inter = Inter({ subsets: ['latin'] });
+import { inter } from './fonts';
 
 export const metadata: Metadata = {
   title: 'HireBuddy - Find Your Dream Job',
@@ -16,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={inter.variable}>
+      <body className={`${inter.className} antialiased`}>
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition">
@@ -25,7 +23,9 @@ export default function RootLayout({
             </Link>
           </div>
         </header>
-        {children}
+        <main className="min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
