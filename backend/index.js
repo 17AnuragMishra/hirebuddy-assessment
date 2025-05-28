@@ -14,18 +14,14 @@ app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 
-// Connect to MongoDB Atlas
 const MONGODB_URI = 'mongodb+srv://anuragmishra0521:9pekAmB5DA4ksiUN@cluster0.lnfttoq.mongodb.net/hirebuddy?retryWrites=true&w=majority&appName=Cluster0';
 
-// Add connection options for better reliability
 mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
-  socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
 })
 .then(async () => {
   console.log('Successfully connected to MongoDB Atlas.');
-  
-  // Create text index
   try {
     await Job.collection.createIndex(
       { job_title: 'text', job_description: 'text', company_name: 'text' },
@@ -39,8 +35,6 @@ mongoose.connect(MONGODB_URI, {
       console.error('Error creating text index:', error);
     }
   }
-  
-  // Only try to load jobs after successful connection and index creation
   return loadJobs();
 })
 .then(() => {
@@ -48,10 +42,9 @@ mongoose.connect(MONGODB_URI, {
 })
 .catch((err) => {
   console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit if we can't connect to the database
+  process.exit(1);
 });
 
-// Load JSONL file into MongoDB
 const loadJobs = async () => {
   try {
     console.log('Starting to load jobs...');
