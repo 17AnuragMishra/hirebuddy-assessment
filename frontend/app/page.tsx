@@ -144,6 +144,7 @@ export default function Home() {
             <p className="text-xl text-gray-600 mb-8">
               Search for jobs or upload your resume to get AI-powered job recommendations
             </p>
+            <p className="text-sm text-gray-600 mb-8">Please note that the server is hosted on a free tier and may take a few seconds to respond for first time users.</p>
             
             <div className="space-y-4 max-w-md mx-auto">
               <div className="relative">
